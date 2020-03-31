@@ -41,6 +41,9 @@ NTSTATUS processHiderDeviceControl(PDEVICE_OBJECT, PIRP irp) {
 			break;
 		}
 
+		// We need to find where activeProcessList field in the EPROCESS struct resides,
+		// we assume it will be found after the PID field so we search for it points what appears after it.
+
 		// We assume that the PID will be alligned to % sizeof(HANDLE).
 		// This is not the best approach, but simple and works :)
 		auto addr = reinterpret_cast<HANDLE*>(eprocessAddress);
